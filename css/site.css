@@ -55,11 +55,6 @@ nav a:hover{border-color:var(--red);color:#ff7777}
 .slab b{font:800 3.2cqw/1 Cairo,sans-serif;color:#fff;direction:rtl;white-space:nowrap}
 .slab b u{text-decoration-thickness:.2cqw;text-underline-offset:.55cqw;text-decoration-skip-ink:none}
 @media(max-width:760px){:root{--hh:52px}.person{height:30cqw;right:2cqw;-webkit-mask-image:none;mask-image:none}}
-@media(min-width:761px) and (max-width:1100px){.person{height:29cqw}}
-@media(max-width:600px){
- .person{height:26cqw;right:0}
- .tagline,.list,.rule,.paper,.better,.gtt,.dash,.spp,.crown2,.sparks,.arrow{display:none}
-}
 /* who */
 .who{padding:0 5vw;position:relative;z-index:4;margin-top:-20px}
 .whoin{width:100%;max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:1.6rem;background:linear-gradient(120deg,#191919,#101010);border:1px solid var(--line);border-radius:22px;padding:1.15rem 1.5rem;box-shadow:0 18px 50px rgba(0,0,0,.28)}
