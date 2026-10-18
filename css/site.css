@@ -39,9 +39,10 @@ nav a:hover{border-color:var(--red);color:#ff7777}
 .paper{left:0;bottom:0;width:28.5cqw;height:11.4cqw;background:linear-gradient(160deg,#dcdcdc,#c4c4c4 55%,#d3d3d3);clip-path:polygon(0 5%,8% 0,22% 6%,40% 1%,58% 6%,72% 4%,80% 28%,89% 58%,100% 100%,0 100%);filter:drop-shadow(0 0 .3cqw rgba(0,0,0,.3))}
 .paper::before{content:"";position:absolute;inset:0;opacity:.5;background:repeating-linear-gradient(95deg,transparent 0 .5cqw,rgba(0,0,0,.05) .5cqw .6cqw)}
 .better{left:5cqw;bottom:2.4cqw;font:400 2.1cqw/1.1 "Nothing You Could Do",Caveat,cursive;color:#161616;direction:ltr;text-align:center;transform:rotate(-10deg)}
-.gtt{left:87cqw;top:2.2cqw;font:400 2.6cqw/1.12 "Nothing You Could Do",Caveat,cursive;color:#fff;direction:ltr;text-align:left;transform:rotate(-3deg)}
+.gtt{left:auto;right:3cqw;top:-1cqw;font:400 2.2cqw/1.12 "Nothing You Could Do",Caveat,cursive;color:#fff;direction:ltr;text-align:left;transform:rotate(-3deg)}
 .spp{left:90.4cqw;top:13.4cqw;font:400 1.95cqw/1.15 "Nothing You Could Do",Caveat,cursive;color:#fff;direction:ltr;text-align:center;transform:rotate(-9deg)}
 .dash{background:#0a0a0a;height:.5cqw;border-radius:.3cqw;clip-path:polygon(0 40%,10% 0,45% 25%,80% 5%,100% 35%,92% 100%,50% 70%,12% 100%)}
+.spp,.dash{display:none}
 .dash1{left:86.6cqw;top:11.9cqw;width:8.8cqw;transform:rotate(-4deg)}
 .dash2{left:90cqw;top:21.9cqw;width:7.6cqw;transform:rotate(-9deg)}
 .sparks{left:63.4cqw;top:14.4cqw;width:3.8cqw}
