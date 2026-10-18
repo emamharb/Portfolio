@@ -85,7 +85,7 @@ nav a:hover{border-color:var(--red);color:#ff7777}
 @media(max-width:700px){.videos{padding-top:20px}.video-card{width:205px}.video-track,.video-group{gap:.7rem}.video-name{font-size:.8rem}}
 @media(prefers-reduced-motion:reduce){.video-track{animation:none;transform:none}}
 /* sections */
-.ach{padding-top:30px}
+.ach{padding-top:12px}
 section{padding:clamp(52px,7vw,96px) 5vw;position:relative}
 .head{max-width:1100px;margin:0 auto 1.8rem;text-align:center}
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease) var(--reveal-delay,0ms),transform .7s var(--ease) var(--reveal-delay,0ms)}
