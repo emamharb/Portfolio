@@ -14,12 +14,12 @@ header{position:fixed;inset:12px 4vw auto;z-index:50;display:flex;align-items:ce
 nav{display:flex;gap:1.35rem;font-weight:600}
 nav a{padding:.2rem 0;border-bottom:2px solid transparent;transition:color .25s,border-color .25s}
 nav a:hover{border-color:var(--red);color:#ff7777}
-#menu{display:none;width:34px;height:34px;align-items:center;justify-content:center;flex-direction:column;gap:4px;background:transparent;border:0;border-radius:50%;color:#fff;cursor:pointer;transition:background .2s}
+#menu{display:none;width:34px;height:34px;align-items:center;justify-content:center;flex-direction:column;gap:3px;background:transparent;border:0;border-radius:50%;color:#fff;cursor:pointer;transition:background .2s}
 #menu:hover,#menu[aria-expanded="true"]{background:rgba(255,255,255,.1)}
-#menu span{display:block;width:16px;height:2px;border-radius:2px;background:#fff;transition:transform .25s var(--ease),width .25s var(--ease)}
-#menu span+span{width:16px}
-#menu[aria-expanded="true"] span:first-child{transform:translateY(3px) rotate(45deg)}
-#menu[aria-expanded="true"] span+span{transform:translateY(-3px) rotate(-45deg)}
+#menu span{display:block;width:16px;height:2px;border-radius:2px;background:#fff;transition:transform .25s var(--ease),opacity .2s,width .25s var(--ease)}
+#menu[aria-expanded="true"] span:first-child{transform:translateY(5px) rotate(45deg)}
+#menu[aria-expanded="true"] span:nth-child(2){opacity:0}
+#menu[aria-expanded="true"] span:last-child{transform:translateY(-5px) rotate(-45deg)}
 /* hero (built from elements, no cover image) */
 .hero{position:relative;margin-top:-1px;background:radial-gradient(ellipse at 72% 55%,#f01012 0%,#e1070b 55%,#c20509 100%);padding:calc(var(--hh) + 3vw) 0 0;overflow:hidden;line-height:0;margin-bottom:-1px}
 .hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 28%,rgba(255,255,255,.045) 50%,transparent 72%);transform:translateX(-100%);animation:hero-sheen 1.4s .35s var(--ease) forwards}
