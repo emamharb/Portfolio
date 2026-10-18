@@ -45,7 +45,7 @@ nav a:hover{border-color:var(--red);color:#ff7777}
 .dash1{left:86.6cqw;top:11.9cqw;width:8.8cqw;transform:rotate(-4deg)}
 .dash2{left:90cqw;top:21.9cqw;width:7.6cqw;transform:rotate(-9deg)}
 .sparks{left:68cqw;top:12.5cqw;width:3.8cqw}
-.arrow{left:48.6cqw;top:23cqw;width:13.5cqw}
+.arrow{left:48.6cqw;top:23cqw;width:11.8cqw}
 .person{right:1.2cqw;left:auto;bottom:-.6cqw;height:36.7cqw;width:auto;object-fit:contain;object-position:right bottom;max-width:none;z-index:2;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 6%);mask-image:linear-gradient(to right,transparent 0,#000 6%)}
 .brush{left:24.6cqw;top:13.4cqw;width:37.4cqw;height:1.9cqw;background:#0a0a0a;clip-path:polygon(0 55%,3% 15%,12% 40%,30% 8%,52% 30%,76% 5%,94% 25%,100% 60%,96% 100%,70% 72%,45% 100%,22% 75%,6% 100%)}
 .hl{right:32.1cqw;top:8.6cqw;font:900 4.15cqw/1.22 Cairo,sans-serif;letter-spacing:-.01em;word-spacing:-.12em;color:#fff;direction:rtl;text-align:right;white-space:nowrap;z-index:3;text-shadow:0 .15cqw 0 rgba(0,0,0,.12)}
