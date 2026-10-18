@@ -155,7 +155,7 @@ footer small{flex-basis:100%;color:var(--ash);font-size:.82rem}
 #lb.on{display:flex}
 #lb img{max-height:90vh;border:4px solid #fff}
 @media(max-width:860px){
- header{inset:0;padding:.45rem 5vw;min-height:58px}
+ header{inset:0 0 auto;padding:.45rem 5vw;min-height:58px}
   .cwrap{grid-template-columns:1fr}
  #menu{display:flex;flex:none;width:32px;height:32px}
  header nav{position:fixed;top:68px;inset-inline:3vw;background:rgba(12,12,12,.96);border:1px solid var(--line);border-radius:18px;flex-direction:column;padding:1rem 5vw;transform:translateY(-150%);transition:transform .4s var(--ease),opacity .3s;opacity:0;gap:.6rem;pointer-events:none}
