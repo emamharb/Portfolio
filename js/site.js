@@ -18,6 +18,8 @@ const videos=[['rbupDC4oYw4','قياس الحرارة والرطوبة | Arduino
 const $=s=>document.querySelector(s);
 const img=(f,a,w=800,h=600)=>`<img loading="lazy" decoding="async" width="${w}" height="${h}" src="${P(f)}" alt="${a}">`;
 $('#achGrid').innerHTML=ach.map(a=>`<article class="card" data-z="${P(a.i)}"><div class="im">${img(a.i,a.n)}</div><div class="bd"><span class="cat">${a.t}</span><h3>${a.n}</h3><p>${a.d}</p></div></article>`).join('');
+const firstAchievement=$('#achGrid .card');
+if(firstAchievement){firstAchievement.classList.add('is-visible');const firstImage=firstAchievement.querySelector('img');firstImage.loading='eager';firstImage.fetchPriority='high'}
 $('#projGrid').innerHTML=pr.map(p=>`<article class="card"><div class="im">${img('projects/'+p[5],p[0],800,500)}</div><div class="bd"><span class="cat">${p[1]}</span><h3>${p[0]}</h3><p>${p[2]}</p><div class="tags">${p[3].split('،').map(t=>`<i>${t}</i>`).join('')}</div><a class="go" href="${p[4]}" target="_blank" rel="noopener">زيارة المشروع</a></div></article>`).join('');
 $('#certGrid').innerHTML=certs.map(c=>`<article class="card"><div class="im" data-z="${P('certificates/'+c[3])}">${img('certificates/'+c[3],c[1])}</div><div class="bd"><span class="cat">${c[0]}</span><h3>${c[1]}</h3><p>${c[2]}</p></div></article>`).join('');
 const videoMarkup=videos.map(([id,title])=>`<a class="video-card" href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener" aria-label="شاهد: ${title}"><div class="video-thumb"><img loading="eager" fetchpriority="low" decoding="async" width="480" height="360" src="images/youtube-thumbnails/${id}.webp" alt=""><span class="video-play" aria-hidden="true">▶</span></div><span class="video-name">${title}</span></a>`).join('');
@@ -28,7 +30,7 @@ if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduc
   if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target)}
  }),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
  document.querySelectorAll('.head,.card,.pillars>div,.tools').forEach((el,i)=>{
-  el.classList.add('reveal');el.style.setProperty('--reveal-delay',`${Math.min(i%4,3)*75}ms`);revealObserver.observe(el);
+  el.classList.add('reveal');el.style.setProperty('--reveal-delay',`${Math.min(i%4,3)*75}ms`);if(el!==firstAchievement)revealObserver.observe(el);
  });
 }
 // lightbox
