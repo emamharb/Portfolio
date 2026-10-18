@@ -164,7 +164,7 @@ footer small{flex-basis:100%;color:var(--ash);font-size:.82rem}
 }
 @media(max-width:600px){
  section{padding:52px 5vw}
- .who{padding:0 4vw}
+ .who{padding:0 5vw}
  .whoin{border-radius:17px}
  .grid{grid-template-columns:1fr;gap:1rem}
  .head{margin-bottom:1.35rem}
