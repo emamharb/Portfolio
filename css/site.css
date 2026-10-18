@@ -171,6 +171,7 @@ footer small{flex-basis:100%;color:var(--ash);font-size:.82rem}
  .grid{grid-template-columns:1fr;gap:1rem}
  .head{margin-bottom:1.35rem}
  .head h2{font-size:clamp(1.7rem,8vw,2.5rem)}
+ #contact .head h2{white-space:nowrap;font-size:clamp(1.35rem,7vw,2.5rem)}
  .cert .head h2,#projects .head h2{white-space:normal}
  .cert .card h3,.ach .card h3{white-space:normal}
  .links a{gap:.7rem;flex-wrap:wrap}
