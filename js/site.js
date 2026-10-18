@@ -21,14 +21,23 @@ $('#projGrid').innerHTML=pr.map(p=>`<article class="card"><div class="im">${img(
 $('#certGrid').innerHTML=certs.map(c=>`<article class="card"><div class="im" data-z="${P('certificates/'+c[3])}">${img('certificates/'+c[3],c[1])}</div><div class="bd"><span class="cat">${c[0]}</span><h3>${c[1]}</h3><p>${c[2]}</p></div></article>`).join('');
 const videoMarkup=videos.map(([id,title])=>`<a class="video-card" href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener" aria-label="شاهد: ${title}"><div class="video-thumb"><img loading="lazy" src="images/youtube-thumbnails/${id}.webp" alt=""><span class="video-play" aria-hidden="true">▶</span></div><span class="video-name">${title}</span></a>`).join('');
 $('#videoTrack').innerHTML=`<div class="video-group">${videoMarkup}</div><div class="video-group" aria-hidden="true" inert>${videoMarkup}</div>`;
+// Reveal content as it enters the viewport, with a static fallback.
+if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+ const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+  if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target)}
+ }),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+ document.querySelectorAll('.head,.card,.pillars>div,.tools').forEach((el,i)=>{
+  el.classList.add('reveal');el.style.setProperty('--reveal-delay',`${Math.min(i%4,3)*75}ms`);revealObserver.observe(el);
+ });
+}
 // lightbox
 const lb=$('#lb');
-document.addEventListener('click',e=>{const z=e.target.closest('[data-z]');if(z){lb.querySelector('img').src=z.dataset.z;lb.classList.add('on')}else if(lb.classList.contains('on'))lb.classList.remove('on')});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+document.addEventListener('click',e=>{const z=e.target.closest('[data-z]');if(z){lb.querySelector('img').src=z.dataset.z;lb.classList.add('on');document.body.style.overflow='hidden'}else if(lb.classList.contains('on')){lb.classList.remove('on');document.body.style.overflow=''}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){lb.classList.remove('on');document.body.style.overflow=''}});
 // mobile menu
 const m=$('#menu'),n=$('#nav');
-m.onclick=()=>{const o=n.classList.toggle('open');m.setAttribute('aria-expanded',o)};
-n.onclick=e=>{if(e.target.tagName==='A'){n.classList.remove('open');m.setAttribute('aria-expanded',false)}};
+m.onclick=()=>{const o=n.classList.toggle('open');m.setAttribute('aria-expanded',o);m.textContent=o?'×':'☰'};
+n.onclick=e=>{if(e.target.tagName==='A'){n.classList.remove('open');m.setAttribute('aria-expanded',false);m.textContent='☰'}};
 // hide broken images gracefully
 document.addEventListener('error',e=>{if(e.target.tagName==='IMG'){e.target.style.opacity=.15}},true);
 // Discourage casual copying while keeping text selection and normal link use available.
