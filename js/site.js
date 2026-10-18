@@ -36,8 +36,9 @@ document.addEventListener('click',e=>{const z=e.target.closest('[data-z]');if(z)
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){lb.classList.remove('on');document.body.style.overflow=''}});
 // mobile menu
 const m=$('#menu'),n=$('#nav');
-m.onclick=()=>{const o=n.classList.toggle('open');m.setAttribute('aria-expanded',o);m.textContent=o?'×':'☰'};
-n.onclick=e=>{if(e.target.tagName==='A'){n.classList.remove('open');m.setAttribute('aria-expanded',false);m.textContent='☰'}};
+m.onclick=()=>{const o=n.classList.toggle('open');m.setAttribute('aria-expanded',o);m.setAttribute('aria-label',o?'إغلاق القائمة':'فتح القائمة')};
+n.onclick=e=>{if(e.target.tagName==='A'){n.classList.remove('open');m.setAttribute('aria-expanded',false);m.setAttribute('aria-label','فتح القائمة')}};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&n.classList.contains('open')){n.classList.remove('open');m.setAttribute('aria-expanded','false');m.setAttribute('aria-label','فتح القائمة')}});
 // hide broken images gracefully
 document.addEventListener('error',e=>{if(e.target.tagName==='IMG'){e.target.style.opacity=.15}},true);
 // Discourage casual copying while keeping text selection and normal link use available.
