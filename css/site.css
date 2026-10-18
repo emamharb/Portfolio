@@ -1,14 +1,14 @@
 :root{--hh:58px;--red:#F40A0A;--red2:#C20000;--ink:#0A0A0A;--ink2:#141414;--paper:#F5F5F7;--ash:#D9D9D9;--mute:#9a9a9a}
 :root{--surface:#151515;--line:rgba(255,255,255,.11);--ease:cubic-bezier(.22,1,.36,1)}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:72px}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
 body{font-family:Cairo,sans-serif;background:var(--ink);color:var(--paper);line-height:1.8;overflow-x:hidden}
 img{max-width:100%;display:block;-webkit-user-drag:none;user-select:none;-webkit-user-select:none}
 a{color:inherit;text-decoration:none}
 :focus-visible{outline:3px solid #fff;outline-offset:3px}
 .noise::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.35;mix-blend-mode:multiply;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E")}
 /* nav */
-header{position:fixed;inset:12px 4vw auto;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:.55rem 1rem;background:rgba(12,12,12,.78);border:1px solid var(--line);border-radius:999px;backdrop-filter:blur(18px);box-shadow:0 10px 40px #0003}
+header{position:fixed;inset:0 0 auto;z-index:50;min-height:72px;display:flex;align-items:center;justify-content:space-between;padding:.65rem 5vw;background:rgba(12,12,12,.9);border:0;border-bottom:1px solid var(--line);border-radius:0;backdrop-filter:blur(18px);box-shadow:0 10px 30px #0003}
 .logo{display:flex;align-items:center;gap:.6rem;font-weight:900}
 .logo svg{width:30px;height:30px}
 nav{display:flex;gap:1.35rem;font-weight:600}
@@ -155,7 +155,7 @@ footer small{flex-basis:100%;color:var(--ash);font-size:.82rem}
 #lb.on{display:flex}
 #lb img{max-height:90vh;border:4px solid #fff}
 @media(max-width:860px){
- header{inset:8px 3vw auto;padding:.35rem .65rem;min-height:48px}
+ header{inset:0;padding:.45rem 5vw;min-height:58px}
   .cwrap{grid-template-columns:1fr}
  #menu{display:flex;flex:none;width:32px;height:32px}
  header nav{position:fixed;top:68px;inset-inline:3vw;background:rgba(12,12,12,.96);border:1px solid var(--line);border-radius:18px;flex-direction:column;padding:1rem 5vw;transform:translateY(-150%);transition:transform .4s var(--ease),opacity .3s;opacity:0;gap:.6rem;pointer-events:none}
