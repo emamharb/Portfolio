@@ -46,7 +46,7 @@ nav a:hover{border-color:var(--red);color:#ff7777}
 .dash2{left:90cqw;top:21.9cqw;width:7.6cqw;transform:rotate(-9deg)}
 .sparks{left:63.4cqw;top:14.4cqw;width:3.8cqw}
 .arrow{left:46.6cqw;top:21.6cqw;width:8.6cqw}
-.person{right:0;left:auto;bottom:-.6cqw;height:36.7cqw;width:auto;object-fit:contain;object-position:right bottom;max-width:none;z-index:2;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 6%);mask-image:linear-gradient(to right,transparent 0,#000 6%)}
+.person{right:1.2cqw;left:auto;bottom:-.6cqw;height:36.7cqw;width:auto;object-fit:contain;object-position:right bottom;max-width:none;z-index:2;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 6%);mask-image:linear-gradient(to right,transparent 0,#000 6%)}
 .brush{left:24.6cqw;top:13.4cqw;width:37.4cqw;height:1.9cqw;background:#0a0a0a;clip-path:polygon(0 55%,3% 15%,12% 40%,30% 8%,52% 30%,76% 5%,94% 25%,100% 60%,96% 100%,70% 72%,45% 100%,22% 75%,6% 100%)}
 .hl{right:32.1cqw;top:8.6cqw;font:900 4.15cqw/1.22 Cairo,sans-serif;letter-spacing:-.01em;word-spacing:-.12em;color:#fff;direction:rtl;text-align:right;white-space:nowrap;z-index:3;text-shadow:0 .15cqw 0 rgba(0,0,0,.12)}
 .hl span{display:block}
@@ -54,7 +54,7 @@ nav a:hover{border-color:var(--red);color:#ff7777}
 .slab{left:23.7cqw;top:21.4cqw;width:21.8cqw;height:7.4cqw;background:#0a0a0a;z-index:3;display:grid;place-items:center;clip-path:polygon(1% 14%,6% 0,18% 9%,35% 2%,55% 10%,75% 1%,94% 7%,100% 20%,97% 42%,100% 62%,96% 86%,99% 100%,78% 93%,55% 100%,32% 92%,12% 100%,3% 91%,0 70%,3% 46%,0 28%)}
 .slab b{font:800 3.2cqw/1 Cairo,sans-serif;color:#fff;direction:rtl;white-space:nowrap}
 .slab b u{text-decoration-thickness:.2cqw;text-underline-offset:.55cqw;text-decoration-skip-ink:none}
-@media(max-width:760px){:root{--hh:52px}.person{height:33cqw;right:2cqw;-webkit-mask-image:none;mask-image:none}}
+@media(max-width:760px){:root{--hh:52px}.person{height:33cqw;right:3.2cqw;-webkit-mask-image:none;mask-image:none}}
 /* who */
 .who{padding:0 5vw;position:relative;z-index:4;margin-top:-20px}
 .whoin{width:100%;max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:1.6rem;background:linear-gradient(120deg,#191919,#101010);border:1px solid var(--line);border-radius:22px;padding:1.15rem 1.5rem;box-shadow:0 18px 50px rgba(0,0,0,.28)}
