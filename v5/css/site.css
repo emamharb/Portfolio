@@ -76,8 +76,10 @@ nav a:hover{border-color:var(--red);color:#ff7777}
 .projects-jump:hover span{background:var(--red);border-color:var(--red);box-shadow:0 10px 26px #f40a0a44}
 .projects-jump:focus-visible{outline:2px solid var(--red);outline-offset:5px;border-radius:999px}
 .projects-jump svg{display:block;width:min(72vw,680px);height:auto;overflow:visible}
-.projects-jump path{fill:none;stroke:var(--red);stroke-width:6;stroke-linecap:round;stroke-linejoin:round;transition:stroke-width .2s}
-.projects-jump:hover path{stroke-width:7}
+.projects-jump path{fill:none;stroke:var(--red);stroke-linecap:round;transition:stroke-width .2s}
+.projects-jump .sweep{stroke-width:5.5;stroke-linejoin:round}
+.projects-jump .tip{stroke-width:5.5;stroke-linejoin:miter;stroke-miterlimit:4}
+.projects-jump:hover path{stroke-width:6.5}
 .video-window{overflow:hidden;direction:ltr;mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
 .video-track{display:flex;width:max-content;gap:1rem;animation:video-scroll 105s linear infinite}
 .video-window:hover .video-track,.video-window:focus-within .video-track{animation-play-state:paused}
@@ -90,7 +92,7 @@ nav a:hover{border-color:var(--red);color:#ff7777}
 .video-play{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.08);color:#fff;font-size:2.4rem;text-shadow:0 2px 8px #000;opacity:.9}
 .video-name{display:block;padding:.55rem .75rem;color:#fff;font-size:.88rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @keyframes video-scroll{to{transform:translateX(-50%)}}
-@media(max-width:700px){.videos{padding-top:20px}.projects-jump{margin-bottom:.55rem;font-size:1.08rem}.projects-jump span{min-height:44px;padding:.38rem 1.15rem}.projects-jump svg{width:min(88vw,420px)}.projects-jump path{stroke-width:5}.projects-jump:hover path{stroke-width:6}.video-card{width:205px}.video-track,.video-group{gap:.7rem}.video-name{font-size:.8rem}}
+@media(max-width:700px){.videos{padding-top:20px}.projects-jump{margin-bottom:.55rem;font-size:1.08rem}.projects-jump span{min-height:44px;padding:.38rem 1.15rem}.projects-jump svg{width:min(88vw,420px)}.projects-jump .sweep,.projects-jump .tip{stroke-width:4.5}.projects-jump:hover .sweep,.projects-jump:hover .tip{stroke-width:5.5}.video-card{width:205px}.video-track,.video-group{gap:.7rem}.video-name{font-size:.8rem}}
 @media(prefers-reduced-motion:reduce){.video-track{animation:none;transform:none}}
 /* sections */
 .ach{padding-top:12px}
