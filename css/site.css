@@ -92,6 +92,8 @@ nav a:hover{border-color:var(--red);color:#ff7777}
 /* sections */
 .ach{padding-top:12px}
 section{padding:clamp(52px,7vw,96px) 5vw;position:relative}
+.cert{padding-bottom:clamp(28px,3.5vw,48px)}
+#projects{padding-top:clamp(28px,3.5vw,48px)}
 .head{max-width:1100px;margin:0 auto 1.8rem;text-align:center}
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease) var(--reveal-delay,0ms),transform .7s var(--ease) var(--reveal-delay,0ms)}
 .reveal.is-visible{opacity:1;transform:translateY(0)}
