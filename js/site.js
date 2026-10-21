@@ -47,6 +47,101 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&n.classList.contain
 document.addEventListener('error',e=>{if(e.target.tagName==='IMG'){e.target.classList.add('image-missing')}},true);
 // Discourage casual copying while keeping text selection and normal link use available.
 document.querySelector('#copyrightYear').textContent=new Date().getFullYear();
+// Let the site owner guide visitors through each section as they scroll.
+const narrator=$('#scrollNarrator'),narratorText=$('#scrollNarratorText'),narratorImage=$('#scrollNarratorImage');
+if(narrator&&narratorText&&narratorImage&&'IntersectionObserver' in window){
+ const projectImage='images/me/portrait_2.jpg';
+ const transitionDuration=380;
+ const wait=duration=>new Promise(resolve=>setTimeout(resolve,duration));
+ const preloadImage=src=>new Promise(resolve=>{
+  const image=new Image();image.onload=()=>resolve(true);image.onerror=()=>resolve(false);image.src=src;
+  if(image.complete)resolve(image.naturalWidth>0);
+ });
+ const animateNarrator=()=>{narrator.classList.remove('is-changing');void narrator.offsetWidth;narrator.classList.add('is-changing')};
+ const observedSections=new Map();
+ let userHasScrolled=false,requestedNarration=null,narrationRevision=0,lastScrollY=window.scrollY,scrollDirection='down';
+ const sectionByTrigger=new Map();
+ const triggerDirectionByTarget=new Map();
+ const getActiveSection=()=>{
+  const enteringEdge=scrollDirection==='down'?'top':'bottom';
+  const anchor=window.innerHeight*(scrollDirection==='down'?.82:.18);
+  const trigger=[...observedSections.keys()].filter(target=>{
+   const direction=triggerDirectionByTarget.get(target);
+   return !direction||direction===scrollDirection;
+  }).sort((a,b)=>{
+  return Math.abs(a.getBoundingClientRect()[enteringEdge]-anchor)-Math.abs(b.getBoundingClientRect()[enteringEdge]-anchor);
+  })[0];
+  return trigger?sectionByTrigger.get(trigger):null;
+ };
+ const updateNarration=async()=>{
+  const active=getActiveSection();
+  if(!userHasScrolled||window.scrollY<=0){
+   if(requestedNarration==='top')return;
+   const previousNarration=requestedNarration;
+   requestedNarration='top';const revision=++narrationRevision;
+   const narratorWasActive=narrator.classList.contains('is-active');
+   narrator.classList.remove('is-active','is-changing','is-avatar-left','is-side-left');
+   const previousWasNarrator=previousNarration&&previousNarration!=='top'&&!previousNarration.classList.contains('videos');
+   if(narratorWasActive||previousWasNarrator)await wait(transitionDuration);
+   if(revision!==narrationRevision)return;
+   narratorText.textContent='';
+   return;
+  }
+  if(!active)return;
+  if(requestedNarration===active)return;
+  const previousNarration=requestedNarration;
+  requestedNarration=active;const revision=++narrationRevision;
+  const isVideo=active.classList.contains('videos');
+  const narratorWasActive=narrator.classList.contains('is-active');
+  narrator.classList.remove('is-active','is-changing');
+  if(isVideo){
+   const previousWasNarrator=previousNarration&&previousNarration!=='top'&&!previousNarration.classList.contains('videos');
+   if(narratorWasActive||previousWasNarrator)await wait(transitionDuration);
+   if(revision!==narrationRevision)return;
+   return;
+  }
+  const message=active.dataset.narration;
+  const image=active.dataset.narrationImage;
+  const imagePath=image?`images/me/${image}`:projectImage;
+  const side=active.dataset.narrationSide;
+  const [imageLoaded]=await Promise.all([preloadImage(imagePath),wait(transitionDuration)]);
+  if(revision!==narrationRevision)return;
+  const visibleImage=imageLoaded?imagePath:projectImage;
+  if(visibleImage!==imagePath)await preloadImage(visibleImage);
+  if(revision!==narrationRevision)return;
+  narratorImage.src=visibleImage;
+  narrator.classList.toggle('is-side-left',side==='left');
+  narrator.classList.toggle('is-avatar-left',side==='left');
+  narratorText.textContent=message;
+  narrator.classList.add('is-active');
+  animateNarrator();
+ };
+ const narrationObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>entry.isIntersecting?observedSections.set(entry.target,entry):observedSections.delete(entry.target));
+  updateNarration();
+ },{rootMargin:'0px',threshold:0});
+ document.querySelectorAll('[data-narration]').forEach((section,index)=>{
+  section.dataset.narrationSide=index%2?'left':'right';
+  const downTrigger=section.dataset.narrationTrigger?section.querySelector(section.dataset.narrationTrigger):null;
+  const downTarget=downTrigger||section;
+  const upTrigger=section.dataset.narrationTriggerUp?section.querySelector(section.dataset.narrationTriggerUp):null;
+  const upTarget=upTrigger||downTarget;
+  sectionByTrigger.set(downTarget,section);
+  triggerDirectionByTarget.set(downTarget,downTarget===upTarget?null:'down');
+  narrationObserver.observe(downTarget);
+  if(upTarget!==downTarget){
+   sectionByTrigger.set(upTarget,section);
+   triggerDirectionByTarget.set(upTarget,'up');
+   narrationObserver.observe(upTarget);
+  }
+ });
+ updateNarration();
+ const respondToScroll=()=>{userHasScrolled=true;updateNarration()};
+ window.addEventListener('wheel',e=>{if(e.deltaY){scrollDirection=e.deltaY>0?'down':'up';respondToScroll()}},{passive:true});
+ window.addEventListener('touchmove',respondToScroll,{passive:true});
+ window.addEventListener('scroll',()=>{const current=window.scrollY;if(current!==lastScrollY)scrollDirection=current>lastScrollY?'down':'up';lastScrollY=current;userHasScrolled=true;updateNarration()},{passive:true});
+ window.addEventListener('keydown',e=>{if(['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(e.key))requestAnimationFrame(respondToScroll)});
+}
 document.addEventListener('contextmenu',e=>e.preventDefault());
 document.addEventListener('dragstart',e=>{if(e.target.closest('img'))e.preventDefault()});
 document.addEventListener('keydown',e=>{
