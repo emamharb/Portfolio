@@ -32,7 +32,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Caveat:wght@700&family=Mrs+Saint+Delafield&family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/site.css?v=video-intro-20261021">
+<link rel="stylesheet" href="css/site.css?v=profile-photo-size-20261022">
 </head>
 <body>
 <header>
@@ -80,17 +80,17 @@
  <div class="grid" id="achGrid"></div>
 </section>
 
-<section id="cert" class="cert" data-narration="كل شهادة هنا وراها مهارة جديدة اتعلمتها." data-narration-image="portrait_6.jpg" data-narration-trigger-up="#certGrid .card:last-child">
+<section id="cert" class="cert" data-narration="كل شهادة هنا وراها مهارة جديدة اتعلمتها." data-narration-image="portrait_6.jpg" data-narration-trigger="#certGrid .card:nth-child(2)" data-narration-trigger-up="#certGrid .card:last-child">
  <div class="head"><small>الشهادات</small><h2>أتعلم لأعلّم بشكل أفضل</h2></div>
  <div class="grid" id="certGrid"></div>
 </section>
 
-<section id="projects" data-narration="وهنا مشاريعي، من تطبيقات تعليمية لمواقع وأدوات." data-narration-image="portrait_1.jpg" data-narration-side="left" data-narration-trigger-up="#projGrid .card:last-child">
+<section id="projects" data-narration="وهنا مشاريعي، من تطبيقات تعليمية لمواقع وأدوات." data-narration-image="portrait_1.jpg" data-narration-side="left" data-narration-trigger="#projGrid .card:nth-child(2)" data-narration-trigger-up="#projGrid .card:last-child">
  <div class="head"><small>المشاريع</small><h2>كل مشروع هنا يحكي قصة</h2></div>
  <div class="grid" id="projGrid"></div>
 </section>
 
-<section id="phil" data-narration="في التعليم، بحب أخلي الطالب يفكر ويجرب بنفسه." data-narration-image="portrait_6.jpg">
+<section id="phil" data-narration="في التعليم، بحب أخلي الطالب يفكر ويجرب بنفسه." data-narration-image="portrait_6.jpg" data-narration-trigger="#phil .pillars>div:nth-child(2)" data-narration-trigger-up="#phil .pillars>div:last-child">
  <div class="head"><small style="background:var(--ink);color:#fff">فلسفتي في الفصل الدراسي</small><h2>أعلّم الطالب كيف يفكّر، لا كيف يحفظ</h2></div>
  <div class="pillars">
   <div><h3>التفكير النقدي أولاً</h3><p>لا أعلّم الطلاب كيف يحفظون الأوامر، بل كيف يفكّرون في المشكلة ويصلون للحل بأنفسهم.</p></div>
@@ -101,7 +101,7 @@
  <div class="tools"><b>أدوات التدريس</b><span>Storyline 360</span><span>Google Classroom</span><span>ArtSteps 3D</span><span>Canva Education</span><span>Scratch</span><span>MIT App Inventor</span></div>
 </section>
 
-<section id="contact" class="noise" data-narration="عندك فكرة أو حابب نتعاون؟ كلّمني ونبدأ سوا." data-narration-image="portrait_5.jpg" data-narration-side="left">
+<section id="contact" class="noise" data-narration="عندك فكرة أو حابب نتعاون؟ كلّمني ونبدأ سوا." data-narration-image="portrait_5.jpg" data-narration-side="left" data-narration-trigger="#contact .links a:nth-child(2)" data-narration-trigger-up="#contact .links a:last-child">
  <div class="head"><small>التواصل</small><h2>هل لديك فكرة؟</h2><p style="color:#fff">سواء كنت تريد التعاون في مشروع تعليمي، أو الاستفسار عن خدماتي التقنية، أنا هنا.</p></div>
  <div class="cwrap" style="position:relative;z-index:2">
   <div class="links">
@@ -127,14 +127,14 @@
  </div>
 </aside>
 
-<footer data-narration="شكرًا على زيارتك، وإن شاء الله نشتغل سوا على فكرة جديدة." data-narration-image="portrait_5.jpg">
+<footer>
  <b>emam website</b>
  <nav><a href="#home">الرئيسية</a><a href="#ach">الإنجازات</a><a href="#cert">الشهادات</a><a href="#projects">المشاريع</a><a href="#phil">الفلسفة</a><a href="#contact">تواصل</a></nav>
  <small>© <span id="copyrightYear"></span> محمد إمام — جميع الحقوق محفوظة</small>
 </footer>
 <div id="lb" role="dialog" aria-label="عرض الصورة"><img alt=""></div>
 
-<script src="js/site.js?v=directional-card-entry-20261021" defer></script>
+<script src="js/site.js?v=contact-narration-end-20261022" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

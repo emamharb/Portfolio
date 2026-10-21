@@ -30,8 +30,9 @@ if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduc
  const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
   if(entry.isIntersecting){entry.target.classList.add('is-visible');revealObserver.unobserve(entry.target)}
  }),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
- document.querySelectorAll('.head,.card,.pillars>div,.tools').forEach((el,i)=>{
-  el.classList.add('reveal');el.style.setProperty('--reveal-delay',`${Math.min(i%4,3)*75}ms`);if(el!==firstAchievement)revealObserver.observe(el);
+ document.querySelectorAll('.head,.card,.pillars>div,.tools').forEach(el=>{
+  const siblingIndex=[...el.parentElement.children].indexOf(el);
+  el.classList.add('reveal');el.style.setProperty('--reveal-delay',`${Math.min(siblingIndex,4)*75}ms`);if(el!==firstAchievement)revealObserver.observe(el);
  });
 }
 // lightbox
@@ -51,30 +52,54 @@ document.querySelector('#copyrightYear').textContent=new Date().getFullYear();
 const narrator=$('#scrollNarrator'),narratorText=$('#scrollNarratorText'),narratorImage=$('#scrollNarratorImage');
 if(narrator&&narratorText&&narratorImage&&'IntersectionObserver' in window){
  const projectImage='images/me/portrait_2.jpg';
- const transitionDuration=380;
+ const prefersReducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const transitionDuration=prefersReducedMotion?0:380;
  const wait=duration=>new Promise(resolve=>setTimeout(resolve,duration));
  const preloadImage=src=>new Promise(resolve=>{
   const image=new Image();image.onload=()=>resolve(true);image.onerror=()=>resolve(false);image.src=src;
   if(image.complete)resolve(image.naturalWidth>0);
  });
- const animateNarrator=()=>{narrator.classList.remove('is-changing');void narrator.offsetWidth;narrator.classList.add('is-changing')};
+ const animateNarrator=()=>{if(prefersReducedMotion)return;narrator.classList.remove('is-changing');void narrator.offsetWidth;narrator.classList.add('is-changing')};
  const observedSections=new Map();
  let userHasScrolled=false,requestedNarration=null,narrationRevision=0,lastScrollY=window.scrollY,scrollDirection='down';
  const sectionByTrigger=new Map();
  const triggerDirectionByTarget=new Map();
+ const triggerTypeByTarget=new Map();
+ const sectionCheckpoints=[];
+ const checkpointBySection=new Map();
  const getActiveSection=()=>{
-  const enteringEdge=scrollDirection==='down'?'top':'bottom';
-  const anchor=window.innerHeight*(scrollDirection==='down'?.82:.18);
+  if(scrollDirection==='down'){
+   const anchor=window.innerHeight;
+   let current=null;
+   for(const checkpoint of sectionCheckpoints){
+    if(checkpoint.boundary.getBoundingClientRect().top<=anchor)current=checkpoint;
+    else break;
+   }
+   if(!current)return null;
+   const headerBottom=document.querySelector('header')?.getBoundingClientRect().bottom||0;
+   const lastTargetPassed=current.section.id!=='contact'&&current.lastTarget&&current.lastTarget.getBoundingClientRect().bottom<=headerBottom;
+   const ready=current.downTarget.getBoundingClientRect().top<=anchor&&!lastTargetPassed;
+   return {section:current.section,type:ready?'show':'boundary'};
+  }
+  const enteringEdge='bottom';
+  const anchor=window.innerHeight*.18;
   const trigger=[...observedSections.keys()].filter(target=>{
    const direction=triggerDirectionByTarget.get(target);
-   return !direction||direction===scrollDirection;
+   if(direction&&direction!==scrollDirection)return false;
+   if(scrollDirection==='up'&&direction==='up'){
+    const checkpoint=checkpointBySection.get(sectionByTrigger.get(target));
+    const headerBottom=document.querySelector('header')?.getBoundingClientRect().bottom||0;
+    if(checkpoint?.nextBoundary&&checkpoint.nextBoundary.getBoundingClientRect().top<headerBottom)return false;
+   }
+   return true;
   }).sort((a,b)=>{
   return Math.abs(a.getBoundingClientRect()[enteringEdge]-anchor)-Math.abs(b.getBoundingClientRect()[enteringEdge]-anchor);
   })[0];
-  return trigger?sectionByTrigger.get(trigger):null;
+  return trigger?{section:sectionByTrigger.get(trigger),type:triggerTypeByTarget.get(trigger)}:null;
  };
  const updateNarration=async()=>{
-  const active=getActiveSection();
+  const trigger=getActiveSection();
+  const active=trigger?.type==='boundary'?null:trigger?.section;
   if(!userHasScrolled||window.scrollY<=0){
    if(requestedNarration==='top')return;
    const previousNarration=requestedNarration;
@@ -87,7 +112,18 @@ if(narrator&&narratorText&&narratorImage&&'IntersectionObserver' in window){
    narratorText.textContent='';
    return;
   }
-  if(!active)return;
+  if(!active){
+   if(requestedNarration&&requestedNarration!=='top'){
+    requestedNarration=null;const revision=++narrationRevision;
+    const narratorWasActive=narrator.classList.contains('is-active');
+    narrator.classList.remove('is-active','is-changing');
+    if(narratorWasActive)await wait(transitionDuration);
+    if(revision!==narrationRevision)return;
+    narratorText.textContent='';
+    narrator.classList.remove('is-avatar-left','is-side-left');
+   }
+   return;
+  }
   if(requestedNarration===active)return;
   const previousNarration=requestedNarration;
   requestedNarration=active;const revision=++narrationRevision;
@@ -104,7 +140,8 @@ if(narrator&&narratorText&&narratorImage&&'IntersectionObserver' in window){
   const image=active.dataset.narrationImage;
   const imagePath=image?`images/me/${image}`:projectImage;
   const side=active.dataset.narrationSide;
-  const [imageLoaded]=await Promise.all([preloadImage(imagePath),wait(transitionDuration)]);
+  const transitionOut=narratorWasActive?wait(transitionDuration):Promise.resolve();
+  const [imageLoaded]=await Promise.all([preloadImage(imagePath),transitionOut]);
   if(revision!==narrationRevision)return;
   const visibleImage=imageLoaded?imagePath:projectImage;
   if(visibleImage!==imagePath)await preloadImage(visibleImage);
@@ -124,16 +161,32 @@ if(narrator&&narratorText&&narratorImage&&'IntersectionObserver' in window){
   section.dataset.narrationSide=index%2?'left':'right';
   const downTrigger=section.dataset.narrationTrigger?section.querySelector(section.dataset.narrationTrigger):null;
   const downTarget=downTrigger||section;
+  const boundaryTarget=section.querySelector('.head')||section;
   const upTrigger=section.dataset.narrationTriggerUp?section.querySelector(section.dataset.narrationTriggerUp):null;
   const upTarget=upTrigger||downTarget;
+  const lastTarget=section.querySelector('.grid .card:last-child')||section.querySelector('.video-window')||section.querySelector('.tools')||section.querySelector('.pillars>div:last-child')||section.querySelector('.cta')||section.querySelector('.links a:last-child')||section;
+  const checkpoint={section,boundary:boundaryTarget,downTarget,lastTarget,nextBoundary:null};
+  sectionCheckpoints.push(checkpoint);
+  checkpointBySection.set(section,checkpoint);
   sectionByTrigger.set(downTarget,section);
   triggerDirectionByTarget.set(downTarget,downTarget===upTarget?null:'down');
+  triggerTypeByTarget.set(downTarget,'show');
   narrationObserver.observe(downTarget);
-  if(upTarget!==downTarget){
+  if(downTrigger&&boundaryTarget!==downTarget){
+   sectionByTrigger.set(boundaryTarget,section);
+   triggerDirectionByTarget.set(boundaryTarget,'down');
+   triggerTypeByTarget.set(boundaryTarget,'boundary');
+   narrationObserver.observe(boundaryTarget);
+  }
+  if(upTarget!==downTarget&&upTarget!==boundaryTarget){
    sectionByTrigger.set(upTarget,section);
    triggerDirectionByTarget.set(upTarget,'up');
+   triggerTypeByTarget.set(upTarget,'show');
    narrationObserver.observe(upTarget);
   }
+ });
+ sectionCheckpoints.forEach((checkpoint,index)=>{
+  checkpoint.nextBoundary=sectionCheckpoints[index+1]?.boundary||null;
  });
  updateNarration();
  const respondToScroll=()=>{userHasScrolled=true;updateNarration()};
