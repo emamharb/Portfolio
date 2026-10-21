@@ -35,7 +35,7 @@ nav a:hover{border-color:var(--red);color:#ff7777}
 .paper{left:0;bottom:0;width:28.5cqw;height:11.4cqw;background:linear-gradient(160deg,#dcdcdc,#c4c4c4 55%,#d3d3d3);clip-path:polygon(0 5%,8% 0,22% 6%,40% 1%,58% 6%,72% 4%,80% 28%,89% 58%,100% 100%,0 100%);filter:drop-shadow(0 0 .3cqw rgba(0,0,0,.3))}
 .paper::before{content:"";position:absolute;inset:0;opacity:.5;background:repeating-linear-gradient(95deg,transparent 0 .5cqw,rgba(0,0,0,.05) .5cqw .6cqw)}
 .better{left:5cqw;bottom:2.4cqw;font:400 2.1cqw/1.1 "Nothing You Could Do",Caveat,cursive;color:#161616;direction:ltr;text-align:center;transform:rotate(-10deg)}
-.hero-motto{left:50%;top:50%;width:84cqw;box-sizing:border-box;padding:1.7cqw 4cqw;transform:translate(-50%,-50%);color:#fff;direction:rtl;text-align:center;font:900 4.2cqw/1.32 Cairo,sans-serif;letter-spacing:-.025em;text-shadow:0 .15cqw 0 rgba(120,0,0,.35);z-index:3}
+.hero-motto{left:50%;top:50%;width:96cqw;box-sizing:border-box;padding:1.3cqw 2cqw;transform:translate(-50%,-50%);color:#fff;direction:rtl;text-align:center;white-space:nowrap;font:900 clamp(12px,4.2cqw,48px)/1 Cairo,sans-serif;letter-spacing:-.04em;text-shadow:0 .15cqw 0 rgba(120,0,0,.35);z-index:3}
 .hero-motto::before,.hero-motto::after{content:"";position:absolute;width:3.6cqw;height:2.5cqw;border-color:#ffd6d6;border-style:solid;opacity:.78}
 .hero-motto::before{top:0;right:0;border-width:.18cqw .18cqw 0 0;border-radius:0 1cqw 0 0}
 .hero-motto::after{bottom:0;left:0;border-width:0 0 .18cqw .18cqw;border-radius:0 0 0 1cqw}
