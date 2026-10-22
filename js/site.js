@@ -76,9 +76,7 @@ if(narrator&&narratorText&&narratorImage&&'IntersectionObserver' in window){
     else break;
    }
    if(!current)return null;
-   const headerBottom=document.querySelector('header')?.getBoundingClientRect().bottom||0;
-   const lastTargetPassed=current.section.id!=='contact'&&current.lastTarget&&current.lastTarget.getBoundingClientRect().bottom<=headerBottom;
-   const ready=current.downTarget.getBoundingClientRect().top<=anchor&&!lastTargetPassed;
+   const ready=current.downTarget.getBoundingClientRect().top<=anchor;
    return {section:current.section,type:ready?'show':'boundary'};
   }
   const enteringEdge='bottom';
@@ -89,7 +87,8 @@ if(narrator&&narratorText&&narratorImage&&'IntersectionObserver' in window){
    if(scrollDirection==='up'&&direction==='up'){
     const checkpoint=checkpointBySection.get(sectionByTrigger.get(target));
     const headerBottom=document.querySelector('header')?.getBoundingClientRect().bottom||0;
-    if(checkpoint?.nextBoundary&&checkpoint.nextBoundary.getBoundingClientRect().top<headerBottom)return false;
+    // Keep the previous section's narration hidden until the next section has passed above the fixed header.
+    if(checkpoint?.nextBoundary&&checkpoint.nextBoundary.getBoundingClientRect().top>=headerBottom)return false;
    }
    return true;
   }).sort((a,b)=>{
